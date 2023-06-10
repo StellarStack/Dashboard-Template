@@ -24,7 +24,7 @@ const SigninForm = ({ toggleForm }) => {
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        router.push('/home');
+        router.push("/home");
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
@@ -51,7 +51,7 @@ const SigninForm = ({ toggleForm }) => {
 
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
-        router.push('/home');
+        router.push("/home");
         const accessToken = credential.accessToken;
 
         // IdP data available using getAdditionalUserInfo(result)
@@ -113,7 +113,7 @@ const SigninForm = ({ toggleForm }) => {
         </button>
       </form>
       <p className="mt-2">
-        Don't have an account?{" "}
+        Don't have an account?
         <button
           onClick={toggleForm}
           className="text-blue-500 hover:underline focus:outline-none"
