@@ -8,8 +8,9 @@ export default function Dashboard() {
     <div className=''>
     <div className='bg-black'>
        <Image className='w-[35px] h-[35px]' src={triangle}/>
-       <div>
+       <div className='bg-black'>
        <Image className='w-[18px] h-[18px]'  src={homepic}/>
+       <p className='text-[white]'>Home</p>
        </div>
        
     </div>
