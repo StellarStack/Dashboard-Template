@@ -1,8 +1,25 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
+import { useEffect, useState } from 'react';
+import firebase from '../firebase';
+import SignupForm from '@/components/SignupForm'; 
+import SigninForm from '@/components/SigninForm';
+import HomePage from '@/components/HomePage';
 
-const inter = Inter({ subsets: ["latin"] });
+const App = () => {
+  const [isSignup, setIsSignup] = useState(false);
 
-export default function Home() {
-  return <div></div>;
-}
+  const toggleForm = () => {
+    setIsSignup(!isSignup);
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      {isSignup ? (
+        <SignupForm toggleForm={toggleForm} />
+      ) : (
+        <SigninForm toggleForm={toggleForm} />
+      )}
+    </div>
+  );
+};
+
+export default App;
