@@ -3,35 +3,86 @@ import firebase from '../firebase';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Logo from '/public/Assets/logo.png'
+import {
+  getAuth,
+  signInWithPopup,
+  FacebookAuthProvider,
+  GoogleAuthProvider,
+} from "firebase/auth";
+// import { FacebookAuthProvider } from "firebase/auth";
 
 const SigninForm = ({ toggleForm }) => {
-    const router = useRouter();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-  
-    const handleSignIn = async () => {
-      try {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        await firebase.auth().signInWithPopup(provider);
-        // Successful login
-        router.push('/home'); // Redirect to the home page
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      try {
-        await firebase.auth().signInWithEmailAndPassword(email, password);
-        // Successful login
-        router.push('/home'); // Redirect to the home page
-      } catch (error) {
-        setError(error.message);
-      }
-    };
+  const provider = new FacebookAuthProvider();
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  const handleSignInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        router.push("/home");
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
+  const handleSignInWithFacebook = async () => {
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        router.push("/home");
+        const accessToken = credential.accessToken;
+
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
+
+        // ...
+      });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      // Successful login
+      router.push("/home"); // Redirect to the home page
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   return (
     <div className='bg-[#b0d8da] w-[100%] h-[100%] flex justify-between'>
@@ -79,6 +130,10 @@ const SigninForm = ({ toggleForm }) => {
           Sign In
         </button>
         </div> 
+        <button onClick={handleSignInWithGoogle}>Sign In with Google</button>
+        <button onClick={handleSignInWithFacebook}>
+          Sign In with Facebook
+        </button>
         {/* Sign in with Google button */}
       </form>
       <p className="mt-2 pt-4  text-gray-400">
