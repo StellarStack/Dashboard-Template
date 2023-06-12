@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
-import firebase from '../firebase';
-import SignupForm from '@/components/SignupForm'; 
+import { useState } from 'react';
+import SignupForm from '@/components/SignupForm';
 import SigninForm from '@/components/SigninForm';
+import useAuthMiddleware from "../authMiddleware";
 
 const App = () => {
+  useAuthMiddleware(); // Use the useAuthMiddleware
+
   const [isSignup, setIsSignup] = useState(false);
 
   const toggleForm = () => {

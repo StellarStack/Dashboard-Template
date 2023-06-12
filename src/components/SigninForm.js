@@ -69,6 +69,18 @@ const SigninForm = ({ toggleForm }) => {
       console.log(error.message);
     }
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      // Successful login
+      router.push('/home'); // Redirect to the home page
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
 
   return (
     <div className="bg-[#b0d8da] w-[100%] h-[100%] flex justify-between">
@@ -93,7 +105,7 @@ const SigninForm = ({ toggleForm }) => {
 
         <div className="flex flex-col items-center mt-10">
           <h2 className="text-3xl font-bold mb-10">Login</h2>
-          <form onSubmit={handleSignup} className="w-64">
+          <form onSubmit={handleSubmit} className="w-64">
             <input
               type="name"
               placeholder="Full name"
