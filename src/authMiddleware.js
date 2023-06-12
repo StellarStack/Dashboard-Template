@@ -9,7 +9,7 @@ const useAuthMiddleware = () => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         // User is not authenticated, redirect to the login page
-        router.push("/login");
+        router.push("/");
       }
     });
 
