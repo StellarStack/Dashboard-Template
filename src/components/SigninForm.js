@@ -15,6 +15,7 @@ const SigninForm = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [name, setName] = useState("");
 
   const handleSignInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -22,7 +23,7 @@ const SigninForm = ({ toggleForm }) => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        router.push("/home");
+        router.push("/Dashboard");
         const token = credential.accessToken;
         const user = result.user;
       })
@@ -39,7 +40,7 @@ const SigninForm = ({ toggleForm }) => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
-        router.push("/home");
+        router.push("/Dashboard");
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
       })
@@ -51,14 +52,21 @@ const SigninForm = ({ toggleForm }) => {
       });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
     try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      router.push("/home"); // Redirect to the home page
+      const userCredential = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+
+      await user.updateProfile({
+        displayName: name,
+      });
+      router.push("/dashboard");
     } catch (error) {
-      setError(error.message);
+      console.log(error.message);
     }
   };
 
@@ -85,19 +93,19 @@ const SigninForm = ({ toggleForm }) => {
 
         <div className="flex flex-col items-center mt-10">
           <h2 className="text-3xl font-bold mb-10">Login</h2>
-          <form onSubmit={handleSubmit} className="w-64">
+          <form onSubmit={handleSignup} className="w-64">
             <input
-              type="email"
+              type="name"
               placeholder="Full name"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="border-b border-gray-300 p-2 w-[350px] mb-2"
             />
             <input
               type="Email Address"
               placeholder="Email Address"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="border-b border-gray-300 p-2 w-[350px] mb-2 rounded"
             />{" "}
             <input

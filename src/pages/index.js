@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import firebase from '../firebase';
 import SignupForm from '@/components/SignupForm'; 
 import SigninForm from '@/components/SigninForm';
-import HomePage from '@/components/HomePage';
 
 const App = () => {
   const [isSignup, setIsSignup] = useState(false);
