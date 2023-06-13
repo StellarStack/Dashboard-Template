@@ -78,8 +78,7 @@ const SigninForm = ({ toggleForm }) => {
 
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      // Successful login
-      router.push("/home"); // Redirect to the home page
+      router.push("/home");
     } catch (error) {
       setError(error.message);
     }
@@ -161,7 +160,6 @@ const SigninForm = ({ toggleForm }) => {
                 Login
               </button>
             </div>
-            {/* Sign in with Google button */}
           </form>
           <p className="mt-2 pt-4  text-gray-400">
             Don't have an account?{" "}
