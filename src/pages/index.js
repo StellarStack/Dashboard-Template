@@ -1,20 +1,10 @@
-import { useState } from "react";
-import SignupForm from "@/components/auth/SignupForm";
-import SigninForm from "@/components/auth/SigninForm";
+import { AuthMain } from "@/components/auth/authMain";
+import React from "react";
 
-export default function App() {
-  const [isSignup, setIsSignup] = useState(false);
-  const toggleForm = () => {
-    setIsSignup(!isSignup);
-  };
-
+export default function index() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      {isSignup ? (
-        <SignupForm toggleForm={toggleForm} />
-      ) : (
-        <SigninForm toggleForm={toggleForm} />
-      )}
+    <div>
+      <AuthMain />
     </div>
   );
 }

@@ -14,7 +14,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 
-const SigninForm = ({ toggleForm }) => {
+export const SigninForm = ({ toggleForm }) => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +27,7 @@ const SigninForm = ({ toggleForm }) => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        router.push("/Dashboard");
+        router.push("/dashboard");
         const token = credential.accessToken;
         const user = result.user;
       })
@@ -44,7 +44,7 @@ const SigninForm = ({ toggleForm }) => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
-        router.push("/Dashboard");
+        router.push("/dashboard");
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
       })
@@ -176,5 +176,3 @@ const SigninForm = ({ toggleForm }) => {
     </div>
   );
 };
-
-export default SigninForm;
