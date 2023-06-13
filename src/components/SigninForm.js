@@ -3,6 +3,10 @@ import firebase from "../firebase";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Logo from "/public/Assets/logo.png";
+import Diamond from "/public/Assets/Diamond.png";
+import Facebook from "/public/Assets/Facebook-logo.png";
+import Google from "/public/Assets/Google-Logo.png";
+
 import {
   getAuth,
   signInWithPopup,
@@ -75,21 +79,32 @@ const SigninForm = ({ toggleForm }) => {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       // Successful login
-      router.push('/home'); // Redirect to the home page
+      router.push("/home"); // Redirect to the home page
     } catch (error) {
       setError(error.message);
     }
   };
 
-
   return (
     <div className="bg-[#b0d8da] w-[100%] h-[100%] flex justify-between">
       <div>
-        <Image className="pt-6" src={Logo} width={120} height={80} />
+        <Image className="pt-4" src={Logo} width={100} height={80} />
+        <div className="text-white text-2xl font-bold pl-8 pt-4">
+          <p>
+            Find 3D Objects, Mockups and <br />
+            Illustrations here.
+          </p>
+        </div>
+        <Image
+          className="pt-8 left-32 absolute "
+          src={Diamond}
+          width={500}
+          height={40}
+        />
       </div>
 
-      <div className="w-[940px] bg-white h-[100%] ">
-        <div className="flex gap-2 text-gray-400 justify-end pr-32 pt-12 ">
+      <div className="w-[900px] bg-white h-[100%] border rounded-l-3xl rounded-lb-3xl">
+        <div className="flex gap-2 text-gray-400 justify-end pr-28 pt-8">
           <p>English(UK)</p>
           <svg
             className="mt-1"
@@ -104,20 +119,31 @@ const SigninForm = ({ toggleForm }) => {
         </div>
 
         <div className="flex flex-col items-center mt-10">
-          <h2 className="text-3xl font-bold mb-10">Login</h2>
+          <h2 className="text-3xl font-bold mb-16">Login</h2>
           <form onSubmit={handleSubmit} className="w-64">
-            <input
-              type="name"
-              placeholder="Full name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="border-b border-gray-300 p-2 w-[350px] mb-2"
-            />
+            <div className="grid grid-cols-2 -ml-[100px] w-[100%] gap-[220px] pb-10">
+              <div className="flex gap-4 text-[#A6A6A6] border-[#A6A6A6] border rounded-2xl py-2 px-4 w-max">
+                <Image className="" src={Google} width={30} height={5} />
+                <button onClick={handleSignInWithGoogle}>
+                  Login In with Google
+                </button>
+              </div>
+
+              <div className="flex gap-4 text-[#A6A6A6] border-[#A6A6A6] border rounded-2xl py-2 px-4 w-max">
+                <Image className="" src={Facebook} width={30} height={10} />
+                <button onClick={handleSignInWithFacebook}>
+                  Login In with Facebook
+                </button>
+              </div>
+            </div>
+            <div className="flex justify-center text-2xl pb-10 text-[#A6A6A6]">
+              <p>-OR-</p>
+            </div>
             <input
               type="Email Address"
               placeholder="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="border-b border-gray-300 p-2 w-[350px] mb-2 rounded"
             />{" "}
             <input
@@ -132,15 +158,10 @@ const SigninForm = ({ toggleForm }) => {
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700  text-white w-[350px] font-bold py-2 px-4 rounded "
               >
-                Sign In
+                Login
               </button>
             </div>
-            <button onClick={handleSignInWithGoogle}>
-              Sign In with Google
-            </button>
-            <button onClick={handleSignInWithFacebook}>
-              Sign In with Facebook
-            </button>
+            {/* Sign in with Google button */}
           </form>
           <p className="mt-2 pt-4  text-gray-400">
             Don't have an account?{" "}
@@ -148,7 +169,7 @@ const SigninForm = ({ toggleForm }) => {
               onClick={toggleForm}
               className="text-blue-500  hover:underline focus:outline-none"
             >
-              Login
+              Sign In
             </button>
           </p>
           {error && <p className="text-red-500 mt-4">{error}</p>}
