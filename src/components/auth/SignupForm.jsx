@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import firebase from '../../firebase';
+import { useState } from "react";
+import firebase from "../../firebase";
 
 const SignupForm = ({ toggleForm }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -11,7 +11,6 @@ const SignupForm = ({ toggleForm }) => {
 
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
-      // Successful signup, you can redirect the user to the home page or another page here
     } catch (error) {
       setError(error.message);
     }
@@ -35,12 +34,15 @@ const SignupForm = ({ toggleForm }) => {
           onChange={(e) => setPassword(e.target.value)}
           className="border border-gray-300 p-2 mb-2 rounded"
         />
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
           Sign Up
         </button>
       </form>
       <p className="mt-2">
-        Already have an account?{' '}
+        Already have an account?{" "}
         <button
           onClick={toggleForm}
           className="text-blue-500 hover:underline focus:outline-none"
