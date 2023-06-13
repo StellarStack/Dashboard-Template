@@ -78,7 +78,7 @@ export const SigninForm = ({ toggleForm }) => {
 
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      router.push("/home");
+      router.push("/dashboard");
     } catch (error) {
       setError(error.message);
     }
@@ -141,8 +141,8 @@ export const SigninForm = ({ toggleForm }) => {
             <input
               type="Email Address"
               placeholder="Email Address"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="border-b border-gray-300 p-2 w-[350px] mb-2 rounded"
             />{" "}
             <input
@@ -167,7 +167,7 @@ export const SigninForm = ({ toggleForm }) => {
               onClick={toggleForm}
               className="text-blue-500  hover:underline focus:outline-none"
             >
-              Sign In
+              Sign Up
             </button>
           </p>
           {error && <p className="text-red-500 mt-4">{error}</p>}
