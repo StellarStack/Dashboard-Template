@@ -2,13 +2,11 @@ import React from "react";
 import Image from "next/image";
 import triangle from "/public/Assets/triangle.png";
 import homepic from "/public/Assets/home-pic.png";
-import useAuth from "../authMiddleware";
-import useAuthMiddleware from "../authMiddleware";
+
 
 
 export const Dashboard = () => {
-  useAuthMiddleware();
-  useAuth();
+
 
   return (
     <div className="">
