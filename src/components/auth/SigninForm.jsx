@@ -1,5 +1,5 @@
 import { useState } from "react";
-import firebase from "../firebase";
+import firebase from "../../firebase";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Logo from "/public/Assets/logo.png";

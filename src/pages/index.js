@@ -1,13 +1,9 @@
-import { useState } from 'react';
-import SignupForm from '@/components/SignupForm';
-import SigninForm from '@/components/SigninForm';
-import useAuthMiddleware from "../authMiddleware";
+import { useState } from "react";
+import SignupForm from "@/components/auth/SignupForm";
+import SigninForm from "@/components/auth/SigninForm";
 
-const App = () => {
-  useAuthMiddleware(); // Use the useAuthMiddleware
-
+export default function App() {
   const [isSignup, setIsSignup] = useState(false);
-
   const toggleForm = () => {
     setIsSignup(!isSignup);
   };
@@ -21,6 +17,4 @@ const App = () => {
       )}
     </div>
   );
-};
-
-export default App;
+}

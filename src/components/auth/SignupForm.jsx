@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import firebase from '../firebase';
+import firebase from '../../firebase';
 
 const SignupForm = ({ toggleForm }) => {
   const [email, setEmail] = useState('');
